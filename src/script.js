@@ -25,14 +25,14 @@ const CarModel = ({model}) => {
 
 const CarModels = ({brand}) => {
   return <React.Fragment>
-    {brand[`models`].map(model => {
-      return <React.Fragment>
-        <tr key={crypto.randomUUID()} className='models'>
+    {brand[`models`].map((model, index) => {
+      return <React.Fragment key={index} >
+        <tr key={index} className='models'>
           <td>{model[`name`]}</td>
         </tr>
         {model[`collection`].map(
-          modelData => <CarModel
-            key={crypto.randomUUID()}
+          (modelData, index) => <CarModel
+            key={index}
             model={modelData}/>
         )}
       </React.Fragment>
@@ -41,7 +41,7 @@ const CarModels = ({brand}) => {
 }
 
 const CarBrand = ({brand}) => {
-  return <tr key={crypto.randomUUID()}>
+  return <tr>
     <td>{brand[`brand`]}</td>
   </tr>
 }
@@ -49,10 +49,10 @@ const CarBrand = ({brand}) => {
 const CarTable = ({cars}) => {
   return <table>
     <tbody>
-    {cars.map((item) => {
-      return <React.Fragment>
-        <CarBrand key={crypto.randomUUID()} brand={item}/>
-        <CarModels key={crypto.randomUUID()} brand={item}/>
+    {cars.map((item, index) => {
+      return <React.Fragment key={index}>
+        <CarBrand brand={item}/>
+        <CarModels brand={item}/>
       </React.Fragment>
     })}
     </tbody>

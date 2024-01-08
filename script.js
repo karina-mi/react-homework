@@ -65,22 +65,22 @@ var CarModels = function CarModels(_ref2) {
   return React.createElement(
     React.Fragment,
     null,
-    brand['models'].map(function (model) {
+    brand['models'].map(function (model, index) {
       return React.createElement(
         React.Fragment,
-        null,
+        { key: index },
         React.createElement(
           'tr',
-          { key: crypto.randomUUID(), className: 'models' },
+          { key: index, className: 'models' },
           React.createElement(
             'td',
             null,
             model['name']
           )
         ),
-        model['collection'].map(function (modelData) {
+        model['collection'].map(function (modelData, index) {
           return React.createElement(CarModel, {
-            key: crypto.randomUUID(),
+            key: index,
             model: modelData });
         })
       );
@@ -93,7 +93,7 @@ var CarBrand = function CarBrand(_ref3) {
 
   return React.createElement(
     'tr',
-    { key: crypto.randomUUID() },
+    null,
     React.createElement(
       'td',
       null,
@@ -111,12 +111,12 @@ var CarTable = function CarTable(_ref4) {
     React.createElement(
       'tbody',
       null,
-      cars.map(function (item) {
+      cars.map(function (item, index) {
         return React.createElement(
           React.Fragment,
-          null,
-          React.createElement(CarBrand, { key: crypto.randomUUID(), brand: item }),
-          React.createElement(CarModels, { key: crypto.randomUUID(), brand: item })
+          { key: index },
+          React.createElement(CarBrand, { brand: item }),
+          React.createElement(CarModels, { brand: item })
         );
       })
     )
