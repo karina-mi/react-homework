@@ -5,13 +5,15 @@ export default class ChangingTable extends Component {
 
   constructor(props) {
     super(props)
+  }
 
-    this.state = {
-      data: [...this.props.data],
-      toSelect: [...Array(this.props.data.length).keys()],
-      tableClassName: null,
-    }
+  state = {
+    data: [...this.props.data],
+    toSelect: [...Array(this.props.data.length).keys()],
+    tableClassName: null,
+  }
 
+  componentDidMount() {
     const selectItem = setInterval(() => {
       const randomIndex = Math.floor(Math.random() * this.state.toSelect.length)
       const pickedNumber = this.state.toSelect[randomIndex]
@@ -49,6 +51,7 @@ export default class ChangingTable extends Component {
       })
     }, 2000)
   }
+
 
   render() {
     return <table className={this.state.tableClassName}>
