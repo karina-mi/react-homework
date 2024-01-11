@@ -1,48 +1,58 @@
-import {useEffect, useState} from 'react'
-import ANIMALS from './data'
+import {Component} from 'react'
 import "./index.css"
 
-const ChangingTable = () => {
+export default class ChangingTable extends Component {
 
-  const [data, setData] = useState(ANIMALS)
-  const [toSelect, setToSelect] = useState([...Array(data.length).keys()])
-  const [halfProcessed, setHalfProcessed] = useState(false)
-  const [fullyProcessed, setFullyProcessed ] = useState(false)
+  constructor(props) {
+    super(props)
 
-  useEffect(() => {
-      const selectNumber = setInterval(() => {
-        const randomIndex = Math.floor(Math.random() * toSelect.length)
-        const pickedNumber = toSelect[randomIndex]
+    this.state = {
+      data: [...this.props.data],
+      toSelect: [...Array(this.props.data.length).keys()],
+      tableClassName: null,
+    }
 
-        console.log("The number randomly generated is ", randomIndex)
-        console.log("Picked number is", pickedNumber)
-        toSelect.splice(randomIndex, 1)
-        console.log(toSelect)
+    const selectItem = setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * this.state.toSelect.length)
+      const pickedNumber = this.state.toSelect[randomIndex]
 
-        setToSelect(toSelect)
-        setData(prevState => prevState.map((item, index) => {
-          if (index === pickedNumber) {
-            item.selected = true
-          }
+      this.state.toSelect.splice(randomIndex, 1)
 
-          return item
-        }), () => {
-          if (!toSelect.length && !fullyProcessed){
-            console.log("fully")
-            setFullyProcessed(true)
-          }
+      const updatedData = this.state.data.map((item, index) => {
+        console.log(item, index, pickedNumber)
+        if (index === pickedNumber) {
+          item.selected = true
+        }
+        return item
 
-          console.log(toSelect.length < (data.length / 2))
-          if (toSelect.length < (data.length / 2) && halfProcessed){
-            console.log("half")
-            setHalfProcessed(true)
-          }
-        })
-      }, 2000)
-      return () => clearInterval(selectNumber)
-    }, [toSelect],)
+      })
 
-  return <table className={fullyProcessed ? 'fully': halfProcessed ? 'half': null}>
+      this.setState({
+        ...this.state,
+        data: [...updatedData],
+      }, () => {
+        !this.state.toSelect.length && clearInterval(selectItem)
+
+        if (!this.state.toSelect.length) {
+          this.setState({
+            ...this.state,
+            tableClassName: 'fully',
+          })
+          return
+        }
+
+        if (this.state.toSelect.length === Math.round(this.props.data.length / 2) - 1) {
+          this.setState({
+            ...this.state,
+            tableClassName: 'half',
+          })
+        }
+      })
+    }, 2000)
+  }
+
+  render() {
+    return <table className={this.state.tableClassName}>
       <thead>
       <tr>
         <th>Type</th>
@@ -50,15 +60,14 @@ const ChangingTable = () => {
       </tr>
       </thead>
       <tbody>
-      {data.map((item, index) => <tr
+      {this.state.data.map((item, index) => <tr
         key={index}
-        className={item.selected ? "selected" : ""}
+        className={item.selected ? "selected" : null}
       >
         <td>{item.type}</td>
         <td>{item.icon}</td>
       </tr>)}
       </tbody>
     </table>
+  }
 }
-
-export default ChangingTable

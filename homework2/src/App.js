@@ -1,11 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
 import ChangingTable from './components/ChangingTable/ChangingTable'
+import ANIMALS from './components/ChangingTable/data'
 
 function App() {
   return (
     <>
-      <ChangingTable />
+      <ChangingTable data={ANIMALS}/>
     </>
   );
 }
