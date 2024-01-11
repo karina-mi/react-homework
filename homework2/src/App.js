@@ -1,4 +1,3 @@
-import './App.css';
 import ChangingTable from './components/ChangingTable/ChangingTable'
 import ANIMALS from './components/ChangingTable/data'
 

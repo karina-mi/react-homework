@@ -19,7 +19,6 @@ export default class ChangingTable extends Component {
       this.state.toSelect.splice(randomIndex, 1)
 
       const updatedData = this.state.data.map((item, index) => {
-        console.log(item, index, pickedNumber)
         if (index === pickedNumber) {
           item.selected = true
         }
