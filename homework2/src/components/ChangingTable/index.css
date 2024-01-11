@@ -1,0 +1,13 @@
+.selected {
+    color: green;
+    font-weight: bold;
+}
+
+.fully {
+    border: black solid 20px;
+}
+
+.half {
+    border: black solid 10px;
+
+}
