@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react'
-import service from '../../servises/todos'
+import service from '../../../services/todos'
 
 export default function TodosForm({liftingTodo}) {
   const inputTitle = useRef()

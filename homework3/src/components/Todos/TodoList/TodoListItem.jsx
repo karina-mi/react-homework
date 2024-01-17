@@ -14,7 +14,7 @@ export default function TodoListItem({
         Completed:{" "}
         <input
           type="checkbox"
-          defaultChecked={item.completed}
+          checked={item.completed}
           onChange={() => handleItemComplete(item)}
         />
       </label>
