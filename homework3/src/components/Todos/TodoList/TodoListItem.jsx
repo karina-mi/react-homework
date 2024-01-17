@@ -1,23 +1,31 @@
-import React from 'react'
-import Button from '../../Buttun/Button.jsx'
+import React from "react"
+
+import ListItem from "@mui/material/ListItem"
+import IconButton from "@mui/material/IconButton"
+import DeleteIcon from "@mui/icons-material/Delete"
+import FormControlLabel from "@mui/material/FormControlLabel"
+import Checkbox from "@mui/material/Checkbox"
 
 export default function TodoListItem({
-    item,
-    handleItemDelete,
-    handleItemComplete,
-    }) {
+ item,
+ handleItemDelete,
+ handleItemComplete,
+ }) {
   return (
-    <li>
+    <ListItem>
       {item.title}
-      <Button title={"Delete"} clickFn={handleItemDelete} />
-      <label>
-        Completed:{" "}
-        <input
-          type="checkbox"
-          checked={item.completed}
-          onChange={() => handleItemComplete(item)}
-        />
-      </label>
-    </li>
+      <IconButton onClick={handleItemDelete} edge="end" aria-label="Delete">
+        <DeleteIcon/>
+      </IconButton>
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={item.completed}
+            onChange={() => handleItemComplete(item)}
+          />
+        }
+        label="Completed"
+      />
+    </ListItem>
   )
 }
